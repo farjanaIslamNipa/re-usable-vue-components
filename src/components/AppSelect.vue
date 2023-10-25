@@ -1,21 +1,11 @@
 <template>
     <div class="">
-        <div class="relative">
+        <div id="selectWrapper" class="relative z-10">
             <button 
             id="appSelect"
             @click="toggleSelect"
             class="flex items-center justify-between transition ease-out duration-300 z-10"
-            :class="
-            dropdownExpand ? 'rounded-b-none' : 'rounded-b-md',
-            appSelect?.dropdownBtn?.width ? appSelect.dropdownBtn.width : 'w-full',
-            appSelect?.dropdownBtn?.border ? appSelect.dropdownBtn.border : 'border border-gray-300 rounded-md',
-            appSelect?.dropdownBtn?.padding ? appSelect.dropdownBtn.padding : 'px-4 py-1',
-            appSelect?.dropdownBtn?.fontSize ? appSelect.dropdownBtn.fontSize : 'text-base',
-            appSelect?.dropdownBtn?.fontWeight ? appSelect.dropdownBtn.fontWeight : 'font-medium',
-            appSelect?.dropdownBtn?.bgColor ? appSelect.dropdownBtn.bgColor : 'bg-white',
-            appSelect?.dropdownBtn?.color ? appSelect.dropdownBtn.color : 'text-gray-600',
-            appSelect?.dropdownBtn?.customBtn ? appSelect.dropdownBtn.customBtn : ''
-            "
+            :class="dropdownExpand ? 'rounded-b-none' : 'rounded-b-md', getDropdownBtnClasses()"
             >
                 <div 
                 v-if="multiselect" 
@@ -23,7 +13,8 @@
                 :class="
                 appSelect?.multiselect?.flexGap ? appSelect?.multiselect?.flexGap : 'gap-x-2 gap-y-2',
                 appSelect?.multiselect?.fontSize ? appSelect.multiselect.fontSize : 'text-base',
-                appSelect?.multiselect?.fontWeight ? appSelect.multiselect.fontWeight : 'font-medium'
+                appSelect?.multiselect?.fontWeight ? appSelect.multiselect.fontWeight : 'font-medium',
+                dropDownIcon ? '' : 'py-2'
                 ">
                     <div 
                     v-if="multipleSelectedItem.length > 0" 
@@ -75,13 +66,15 @@
                             </button>
                         </div>
                     </div>
-                    <div v-else><span class="inline-block">{{ selectedItem ? selectedItem.name : 'Select your options' }}</span></div>
+                    <div v-else><span class="inline-block">{{ defaultOption ? selectedItem.name = defaultOption : selectedItem.name = 'Select your options' }}</span></div>
                 </div>
+
+                <!-- SINGLE SELECT SECTION -->
                 <div v-else class="flex items-center gap-2">
                     <div v-if="selectedItem?.icon"><img :src="selectedItem?.icon" class="h-5" alt=""></div>
-                    <span>{{ selectedItem ? selectedItem.name : 'Select an option' }}</span>
+                    <span>{{ defaultOption ? selectedItem.name = defaultOption : selectedItem.name = 'Select an option'  }}</span>
                 </div>
-                <div class="border border-l-[#d1d1d1] border-y-0 border-r-0 pl-3 py-3 ml-1">
+                <div v-if="dropDownIcon" class="border border-l-[#d1d1d1] border-y-0 border-r-0 pl-3 py-3 ml-1">
                     <svg :class="dropdownExpand ? 'rotate-180 transition-all ease-in-out duration-200':''" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="3.5" stroke="#b3b3b3" class="w-4 h-4">
                         <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5" />
                     </svg>
@@ -89,22 +82,30 @@
             </button>
             <div 
             id="selectDropdown"
-            class="w-full app-select-dropdown transition ease-out duration-300 absolute left-0 right-0 shadow-xl rounded-b-md"
+            class="w-full app-select-dropdown transition ease-out duration-300 absolute left-0 right-0  rounded-b-md z-50"
             >
-                <ul id="app-dropdown-box" class="border border-gray-200 border-t-0 rounded-md rounded-t-none text-base text-gray-600 transition ease-out duration-300 bg-white divide-y divide-gray-200">
+                <ul id="app-dropdown-box" class="border border-gray-200 border-t-0 rounded-md rounded-t-none text-base text-gray-600 transition ease-out duration-300 bg-white divide-y divide-gray-200 shadow-xl">
+                    <li class="px-4 bg-sky-50">
+                        <div class="w-full flex items-center justify-between">
+                            <input v-model="itemSearch" type="text" class="py-2 bg-transparent focus:outline-none block w-full" placeholder="Search option..." >
+                            <div class="inline-block">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 40 40" width="25px" height="25px" baseProfile="basic"><linearGradient id="-2suTD81jP2ew0CFO8L6Qa" x1="31.916" x2="25.088" y1="31.849" y2="26.05" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#b2b2b2"/><stop offset=".999"/></linearGradient><polygon fill="url(#-2suTD81jP2ew0CFO8L6Qa)" points="29.976,27 24.451,27.176 33.95,36.778 36.778,33.95"/><path fill="#b2b2b2" d="M24.313,27c-1.788,1.256-3.962,2-6.313,2c-6.075,0-11-4.925-11-11S11.925,7,18,7s11,4.925,11,11 c0,2.659-0.944,5.098-2.515,7h4.776C32.368,22.909,33,20.53,33,18c0-8.284-6.716-15-15-15S3,9.716,3,18c0,8.284,6.716,15,15,15 c4.903,0,9.243-2.363,11.98-6H24.313z"/></svg>
+                            </div>
+                        </div>
+                    </li>
                     <li
-                    @click="item?.link ? toggleSelect() : selectOption(item.name, item.icon)"
-                     v-for="item in appSelect.dropdownItems" 
+                    @click="item?.link ? '' : selectOption(item.name, item.icon)"
+                     v-for="item in listItems" 
                      :key="item.index" 
-                     class="py-3 px-4 cursor-pointer flex items-center justify-between hover:bg-[#EBEDF5] transition-all duration-300 ease-in-out">
+                     class="px-4 cursor-pointer flex items-center justify-between hover:bg-[#EBEDF5] transition-all duration-300 ease-in-out">
                         <div class="flex items-center gap-3 w-full">
                             <div v-if="item?.icon">
                                 <img :src="item?.icon" class="h-5" alt="">
                             </div>
                             <div class="flex items-center justify-between w-full">
-                                <div class="">
-                                    <RouterLink @click="selectedItem = ''" v-if="item?.link" :to="item?.link" class="block">{{ item.name }}</RouterLink>
-                                    <span v-else class="block">{{ item.name }}</span>
+                                <div class="w-full">
+                                    <RouterLink @click="selectedItem.name = ''" v-if="item?.link" :to="item?.link" class="block py-3">{{ item.name }}</RouterLink>
+                                    <span v-else class="block py-3">{{ item.name }}</span>
                                 </div>
                                 <div class="transition ease-in-out duration-600 opacity-0" :class="isSelected(item.name) ? 'opacity-100 transition ease-in-out duration-600 mr-2' : 'opacity-0'">
                                     <img src="/images/check-mark.svg" class="h-4" alt="Success">
@@ -112,54 +113,65 @@
                             </div>
                         </div>
                     </li>
+                    <li v-if="itemSearch !== ''" class="text-red-500 p-3">No items found</li>
                 </ul>
             </div>
+            <div v-if="dropdownExpand" @click="closeDropdown" class="fixed inset-0 z-30 h-full w-full cursor-default transition duration-300 ease-in-out"></div>
         </div>
+
     </div>
 </template>
 
 <script setup>
+import { ref, computed } from 'vue';
 
-
-import { ref } from 'vue';
-
-const dropdownExpand = ref(false)
-
-const { appSelect, defaultOption, multiselect } = defineProps({
+const { appSelect, defaultOption, multiselect, dropDownIcon } = defineProps({
     appSelect: Object,
     defaultOption: String,
     multiselect: Boolean,
+    dropDownIcon: Boolean,
 })
 
-const selectedItem = ref({name:defaultOption ? defaultOption : 'Select Option', icon:''})
+const selectedItem = ref({name:'', icon:''})
 const multipleSelectedItem = ref([])
+const dropdownExpand = ref(false)
+const collapsedDropdown = ref(true)
+const itemSearch = ref('')
 
-
-const showDropdown = ref(true)
-const toggleSelect = () => {
-if(showDropdown.value ===  true){
-    const appSelectDropdown = document.getElementById('selectDropdown')
-    const appDropdownBox = document.getElementById('app-dropdown-box')
-    const appSelect = document.getElementById('appSelect')
-    const dropdownBoxHeight = appDropdownBox.getBoundingClientRect().height
-    if(appSelectDropdown.getBoundingClientRect().height === 0) {
-        if(dropdownBoxHeight >= 500){
-            appSelectDropdown.style.height = 390 + 'px'
-            appSelectDropdown.style.overflow = 'hidden'
-            appSelectDropdown.style.overflowY = 'auto'
-        }else {
-            appSelectDropdown.style.height = dropdownBoxHeight + 'px'
-        }
-        
-        appDropdownBox.style.top = appSelect.getBoundingClientRect().height + 'px'
-        dropdownExpand.value = true
-    }else{
-        appSelectDropdown.style.height = 0
-        dropdownExpand.value = false
+// FUNCTION TO SET DROPDOWN LIST ITEMS
+const listItems = computed(() => {
+    if(itemSearch === '') return appSelect.dropdownItems
+    else {
+        return appSelect.dropdownItems.filter(item => item.name.toLowerCase().includes(itemSearch.value))
     }
-}
-}
+})
 
+// FUNCTION TO TOGGLING DROPDOWN ITEMS
+const toggleSelect = () => {
+    if(collapsedDropdown.value ===  true){
+        const appSelectDropdown = document.getElementById('selectDropdown')
+        const appDropdownBox = document.getElementById('app-dropdown-box')
+        const appSelect = document.getElementById('appSelect')
+        const dropdownBoxHeight = appDropdownBox.getBoundingClientRect().height
+        if(appSelectDropdown.getBoundingClientRect().height === 0) {
+            if(dropdownBoxHeight >= 500){
+                appSelectDropdown.style.height = 390 + 'px'
+                appSelectDropdown.style.overflow = 'hidden'
+                appSelectDropdown.style.overflowY = 'auto'
+            }else {
+                appSelectDropdown.style.height = dropdownBoxHeight + 'px'
+            }
+            
+            appDropdownBox.style.top = appSelect.getBoundingClientRect().height + 'px'
+            dropdownExpand.value = true
+            }else{
+            appSelectDropdown.style.height = 0
+            dropdownExpand.value = false
+            }
+        }   
+    }
+
+// FUNCTION TO SELECT AN OPTION
 const selectOption = (optionName, optionIcon) => {
     if(multiselect === false){
         if (arguments.length > 1){
@@ -179,19 +191,54 @@ const selectOption = (optionName, optionIcon) => {
 
 }
 
+// FUNCTION TO REMOVE MULTI SELECTED ITEMS
 const removeItem = (itemIndex) => {
-     multipleSelectedItem.value.splice(itemIndex, 1)
+    multipleSelectedItem.value.splice(itemIndex, 1)
     if(multipleSelectedItem.value.length === 0){
-        showDropdown.value = true
+        collapsedDropdown.value = true
     }else {
-        showDropdown.value = false
-     
+        collapsedDropdown.value = false
+    
     }
-
 }
 
+// FUNCTION TO SHOW THE CHECK MARK FOR MULTI SELECT LIST ITEMS
 const isSelected = (currentItem) => {
-  return multipleSelectedItem.value.includes(currentItem)
+return multipleSelectedItem.value.includes(currentItem)
+}
+
+// FUNCTION TO CLOSE DROPDOWN ITEMS CLICKING OUTSIDE THE BOX
+const closeDropdown = () => {
+    const appSelectDropdown = document.getElementById('selectDropdown')
+        if(appSelectDropdown.style.height > '10px'){
+            appSelectDropdown.style.height = '0'
+            dropdownExpand.value = false
+        }
+}
+
+
+// FUNCTION TO SET DYNAMIC CSS
+const selectValues = ref(appSelect);
+
+const getDropdownBtnClasses = () => {
+    let btnClass = {}
+
+    selectValues.value?.dropdownBtn?.width ? btnClass.width = selectValues.value.dropdownBtn.width : btnClass.width = 'w-full',
+    selectValues.value?.dropdownBtn?.border ? btnClass.border = selectValues.value.dropdownBtn.border : btnClass.border = 'border border-gray-300 rounded-md',
+    selectValues.value?.dropdownBtn?.padding ? btnClass.padding = selectValues.value.dropdownBtn.padding : btnClass.padding = 'px-4 py-1',
+    selectValues.value?.dropdownBtn?.fontSize ? btnClass.fontSize = selectValues.value.dropdownBtn.fontSize : btnClass.fontSize = 'text-base',
+    selectValues.value?.dropdownBtn?.fontWeight ? btnClass.fontWeight = selectValues.value.dropdownBtn.fontWeight : btnClass.fontWeight = 'font-medium',
+    selectValues.value?.dropdownBtn?.bgColor ? btnClass.bgColor = selectValues.value.dropdownBtn.bgColor : btnClass.bgColor = 'bg-white',
+    selectValues.value?.dropdownBtn?.color ? btnClass.color = selectValues.value.dropdownBtn.color : btnClass.color = 'text-gray-600',
+    selectValues.value?.dropdownBtn?.customBtn ? btnClass.customBtn = selectValues.value.dropdownBtn.customBtn : btnClass.customBtn = 'text-gray-600'
+
+    return btnClass.width + ' ' +
+    btnClass.border + ' ' +
+    btnClass.padding + ' ' +
+    btnClass.fontSize + ' ' +
+    btnClass.fontWeight + ' ' +
+    btnClass.bgColor + ' ' +
+    btnClass.customBtn
 }
 </script>
 
@@ -205,9 +252,6 @@ const isSelected = (currentItem) => {
  border-bottom: none;
 }
 
-.show-dropdown {
-    height: 500px;
-}
 .app-select-dropdown::-webkit-scrollbar {
   width: 0.5em;
 }

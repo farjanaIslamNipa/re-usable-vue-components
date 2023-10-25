@@ -1,0 +1,199 @@
+{
+    "data": {
+      "getQuotaSalesReport": [
+        {
+          "busOperator": "Jawad Aircon Limited",
+          "tripNoWiseInfos": [
+            {
+              "countermanTripId": "64783556afdb45b2ce9de6be",
+              "tripNo": "TDRJA01",
+              "dateWiseInfos": [
+                {
+                  "date": "2023-06-06T12:00:00.000Z",
+                  "counterWiseInfos": [
+                    {
+                      "counter": "64777b7938de6e17fc1c3609",
+                      "counterName": "Gabtoli JA",
+                      "counterType": "OWN",
+                      "assignedQuota": 4,
+                      "soldSeats": 0,
+                      "availableSeats": 4,
+                      "quotaRelease": "Not Released"
+                    },
+                    {
+                      "counter": null,
+                      "counterName": "JATRI",
+                      "counterType": "ONLINE",
+                      "assignedQuota": 4,
+                      "soldSeats": 0,
+                      "availableSeats": 4,
+                      "quotaRelease": "Not Released"
+                    },
+                    {
+                      "counter": "64777bfe50470268a730b607",
+                      "counterName": "Mohakhali JA",
+                      "counterType": "OWN",
+                      "assignedQuota": 12,
+                      "soldSeats": 0,
+                      "availableSeats": 12,
+                      "quotaRelease": "Not Released"
+                    },
+                    {
+                      "counter": "64777c9dd447fc306f14b11c",
+                      "counterName": "Sayedabad JA",
+                      "counterType": "OWN",
+                      "assignedQuota": 4,
+                      "soldSeats": 0,
+                      "availableSeats": 4,
+                      "quotaRelease": "Not Released"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "countermanTripId": "647c3b6e1fcc16937a0c7733",
+              "tripNo": "TDRJA02 - Copy TDRJA01",
+              "dateWiseInfos": [
+                {
+                  "date": "2023-06-06T10:00:00.000Z",
+                  "counterWiseInfos": [
+                    {
+                      "counter": "64777b7938de6e17fc1c3609",
+                      "counterName": "Gabtoli JA",
+                      "counterType": "OWN",
+                      "assignedQuota": 4,
+                      "soldSeats": 0,
+                      "availableSeats": 4,
+                      "quotaRelease": "Not Released"
+                    },
+                    {
+                      "counter": null,
+                      "counterName": "JATRI",
+                      "counterType": "ONLINE",
+                      "assignedQuota": 4,
+                      "soldSeats": 0,
+                      "availableSeats": 4,
+                      "quotaRelease": "Not Released"
+                    },
+                    {
+                      "counter": "64777bfe50470268a730b607",
+                      "counterName": "Mohakhali JA",
+                      "counterType": "OWN",
+                      "assignedQuota": 12,
+                      "soldSeats": 0,
+                      "availableSeats": 12,
+                      "quotaRelease": "Not Released"
+                    },
+                    {
+                      "counter": "64777c9dd447fc306f14b11c",
+                      "counterName": "Sayedabad JA",
+                      "counterType": "OWN",
+                      "assignedQuota": 4,
+                      "soldSeats": 0,
+                      "availableSeats": 4,
+                      "quotaRelease": "Not Released"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "countermanTripId": "64778957d447fc306f14b505",
+              "tripNo": "TDSJA01",
+              "dateWiseInfos": [
+                {
+                  "date": "2023-06-06T15:30:00.000Z",
+                  "counterWiseInfos": [
+                    {
+                      "counter": "64777b7938de6e17fc1c3609",
+                      "counterName": "Gabtoli JA",
+                      "counterType": "OWN",
+                      "assignedQuota": 4,
+                      "soldSeats": 0,
+                      "availableSeats": 4,
+                      "quotaRelease": "By System"
+                    },
+                    {
+                      "counter": null,
+                      "counterName": "JATRI",
+                      "counterType": "ONLINE",
+                      "assignedQuota": 5,
+                      "soldSeats": 0,
+                      "availableSeats": 5,
+                      "quotaRelease": "By System"
+                    },
+                    {
+                      "counter": "64777bfe50470268a730b607",
+                      "counterName": "Mohakhali JA",
+                      "counterType": "OWN",
+                      "assignedQuota": 16,
+                      "soldSeats": 0,
+                      "availableSeats": 16,
+                      "quotaRelease": "By System"
+                    },
+                    {
+                      "counter": "64777c9dd447fc306f14b11c",
+                      "counterName": "Sayedabad JA",
+                      "counterType": "OWN",
+                      "assignedQuota": 4,
+                      "soldSeats": 0,
+                      "availableSeats": 4,
+                      "quotaRelease": "By System"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "countermanTripId": "647d784229e9b5f6470f9e25",
+              "tripNo": "TDSJA02 - Copy TDSJA01",
+              "dateWiseInfos": [
+                {
+                  "date": "2023-06-06T13:00:00.000Z",
+                  "counterWiseInfos": [
+                    {
+                      "counter": "64777b7938de6e17fc1c3609",
+                      "counterName": "Gabtoli JA",
+                      "counterType": "OWN",
+                      "assignedQuota": 4,
+                      "soldSeats": 0,
+                      "availableSeats": 4,
+                      "quotaRelease": "By System"
+                    },
+                    {
+                      "counter": null,
+                      "counterName": "JATRI",
+                      "counterType": "ONLINE",
+                      "assignedQuota": 5,
+                      "soldSeats": 0,
+                      "availableSeats": 5,
+                      "quotaRelease": "By System"
+                    },
+                    {
+                      "counter": "64777bfe50470268a730b607",
+                      "counterName": "Mohakhali JA",
+                      "counterType": "OWN",
+                      "assignedQuota": 16,
+                      "soldSeats": 0,
+                      "availableSeats": 16,
+                      "quotaRelease": "By System"
+                    },
+                    {
+                      "counter": "64777c9dd447fc306f14b11c",
+                      "counterName": "Sayedabad JA",
+                      "counterType": "OWN",
+                      "assignedQuota": 4,
+                      "soldSeats": 0,
+                      "availableSeats": 4,
+                      "quotaRelease": "By System"
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  }

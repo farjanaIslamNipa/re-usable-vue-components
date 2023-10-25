@@ -1,5 +1,5 @@
 <script setup>
-import AppSelect from './components/AppSelect.vue';
+import AppSelect from '../components/AppSelect.vue';
 const appSelect = {
 dropdownItems: [
     {
@@ -43,7 +43,7 @@ dropdownBtn: {
     width: 'w-full',
     border: 'border border-gray-300 rounded-md',
     padding: 'px-4 py-1',
-    fontSize: 'text-base',
+    fontSize: 'text-sm',
     fontWeight: 'font-medium',
     bgColor: 'bg-white',
     color: 'text-gray-600',
@@ -68,6 +68,9 @@ multiselect: {
     closeIconPadding: 'p-[2px]',
     customMultiSelect: 'custom-multi-select-btn'
 },
+singleSelect: {
+
+}
 
 }
 
@@ -75,7 +78,7 @@ multiselect: {
 </script>
 <template>
     <div class="">
-        <AppSelect :appSelect="appSelect" defaultOption="Select an option" :multiselect="true" />
+        <AppSelect :appSelect="appSelect" defaultOption="Select Option" :multiselect="false" :dropDownIcon="true" />
     </div>
 </template>
 

@@ -13,7 +13,7 @@
   LANGUAGE SECTION
 
 -->
-  <div :class="sticky ? 'fixed top-0 w-full z-50' : 'relative'">
+  <div id="nav-height" :class="sticky ? 'fixed top-0 w-full z-50' : 'relative'">
     <div 
     class="z-50" 
     :class="
@@ -81,7 +81,7 @@
           class="bg-black/50" 
           :class="
             screenSize === mediaScreen ? 'md-nav-item-container md-full-width' : 'nav-item-container full-width',
-            fromRight === right ? 'right-nav' : 'left-nav',
+            expandFrom === 'right' ? 'right-nav' : 'left-nav',
             navItems?.navBg ? `lg:${navItems.navBg}` : 'lg:bg-white'
             " 
           >
@@ -90,7 +90,7 @@
           class="py-8 w-[70%] sm:w-[60%]" 
           :class="
           screenSize === mediaScreen ? 'h-screen md:h-auto' : ' h-screen lg:h-auto',
-          fromRight === right ? 'ml-auto' : '',
+          expandFrom === 'right' ? 'ml-auto' : '',
           navItems?.smallNavBg ? `${navItems.smallNavBg}` : 'bg-white',
           screenSize === mediaScreen ? `md:${navItems.smallNavBg ? navItems.smallNavBg : 'bg-white'} md:w-full md:py-0` : `lg:${navItems.smallNavBg} lg:py-0 md:w-[40%] lg:w-full`
           ">
@@ -193,7 +193,18 @@
                     <div 
                         id="language-dropdown"
                         v-if="openLang"
-                        :class="navItems.languages.class?.position, navItems.languages.class?.left, navItems.languages.class?.zIndex, navItems.languages.class?.origin, navItems.languages.class?.border, navItems.languages.class?.borderRadius, navItems.languages.class?.focus, navItems.languages.class?.margin, navItems.languages.class?.width, navItems.languages.class?.backgroundColor, navItems.languages.class?.customClass"
+                        :class="
+                        navItems.languages.class?.position, 
+                        navItems.languages.class?.left, 
+                        navItems.languages.class?.zIndex, 
+                        navItems.languages.class?.origin, 
+                        navItems.languages.class?.border, 
+                        navItems.languages.class?.borderRadius, 
+                        navItems.languages.class?.focus, 
+                        navItems.languages.class?.margin, 
+                        navItems.languages.class?.width, 
+                        navItems.languages.class?.backgroundColor, 
+                        navItems.languages.class?.customClass"
                         class="custom-shadow"
                         role="menu"
                         aria-orientation="vertical"
@@ -244,16 +255,17 @@
         class="fixed inset-0 z-30 h-full w-full cursor-default transition duration-300 ease-in-out">
   </div>
   </div>
+  <div v-if="sticky" id="adjust-spacing"></div>
 </template>
 
 <script setup>
 import { ref } from 'vue';
 
-const { navItems, fromLeft, fromRight, border, shadow, mediaScreen, sticky, webLanguage, hasBorder, hasShadow } = defineProps({
+const { navItems, fromLeft, expandFrom, border, shadow, mediaScreen, sticky, webLanguage, hasBorder, hasShadow } = defineProps({
   navItems: Object,
   webLanguage: String,
   fromLeft: Boolean,
-  fromRight: Boolean,
+  expandFrom: String,
   border: Boolean,
   shadow: Boolean,
   mediaScreen: String,
@@ -264,7 +276,6 @@ const { navItems, fromLeft, fromRight, border, shadow, mediaScreen, sticky, webL
 
 const openLang = ref(false)
 const selectedLanguage = ref(webLanguage)
-const right = ref(true)
 const screenSize = ref('md')
 
 const openNav = () => {
@@ -285,6 +296,13 @@ const selectLanguage = (name) => {
   selectedLanguage.value = name
   openLang.value = false
 }
+
+window.onload = function() {
+if(sticky === true){
+    const navHeight = document.getElementById('nav-height').getBoundingClientRect().height
+    document.getElementById('adjust-spacing').style.height = navHeight + 'px'
+  }
+};
 </script>
 
 <style scoped>

@@ -1,6 +1,6 @@
 <script setup>
 import { RouterView } from 'vue-router'
-import NavLayoutExample from './NavLayoutExample.vue'
+import NavLayoutExample from './layouts/NavLayoutExample.vue'
 </script>
 
 <template>
