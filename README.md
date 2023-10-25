@@ -28,4 +28,3 @@ npm run dev
 npm run build
 ```
 # reusable-components
-# re-usable-vue-components
