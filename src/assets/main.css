@@ -1,2 +1,8 @@
 @import './base.css';
 
+:root {
+  --webiizardColor: #0b193e;
+  --webiizardGolden: #dbb407;
+  --secondaryColor: #01c2cf;
+  font-family: 'Nunito Sans', sans-serif;
+}

@@ -1,10 +1,11 @@
 <script setup>
 import { RouterView } from 'vue-router'
-import NavLayoutExample from './layouts/NavLayoutExample.vue'
+// import NavLayout from './components/nav/NavLayout.vue';
+
 </script>
 
 <template>
-  <NavLayoutExample />
+  <!-- <NavLayout /> -->
   <RouterView />
 </template>
 
